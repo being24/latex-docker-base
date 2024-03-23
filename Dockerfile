@@ -19,6 +19,10 @@ RUN apt-get update && \
     libfreetype6-dev \
     ghostscript \
     perl \
+    perl-modules \
+    libyaml-tiny-perl \
+    liblog-dispatch-perl \
+    libfile-homedir-perl \
     git \
     less \
     unzip \
@@ -31,7 +35,7 @@ RUN apt-get update && \
     fonts-noto-cjk-extra \
     fonts-texgyre && \
     # Install perl
-    echo 'y' | cpan YAML/Tiny.pm Log::Dispatch::File File::HomeDir Unicode::GCString && \
+    echo 'y' | cpan Unicode::GCString && \
     # Install pygments for minted
     pip3 install --no-cache-dir pygments && \
     # Add nodejs repository
@@ -58,7 +62,6 @@ RUN apt-get update && \
     software-properties-common \
     build-essential \
     unzip \
-    curl \
     make \
     gnupg \
     libfontconfig1-dev \
