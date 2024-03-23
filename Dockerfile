@@ -60,7 +60,6 @@ RUN apt-get update && \
     unzip \
     curl \
     make \
-    ca-certificates \
     gnupg \
     libfontconfig1-dev \
     perl \
