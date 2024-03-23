@@ -64,7 +64,7 @@ RUN apt-get update && \
     gnupg \
     libfontconfig1-dev \
     perl \
-    less \
+    less && \
     apt-get clean && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
