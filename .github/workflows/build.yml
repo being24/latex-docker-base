@@ -70,13 +70,19 @@ jobs:
           REV=$((REV+1))
           done
           echo "IMAGE_VERSION=${YY}.${MM}.${REV}" >> $GITHUB_ENV
-      - uses: ./.github/actions/create-multi-arch-image
+      # - uses: ./.github/actions/create-multi-arch-image
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ github.repository_owner }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+      #     image: ghcr.io/being24/latex-docker-base
+      #     image-version: ${{ env.IMAGE_VERSION }}
+      - name: Create and push manifest images
+        uses: Noelware/docker-manifest-action@v4
         with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          image: ghcr.io/being24/latex-docker-base
-          image-version: ${{ env.IMAGE_VERSION }}
+          inputs: ghcr.io/being24/latex-docker-base:latest
+          images: ghcr.io/being24/latex-docker-base:${{ env.IMAGE_VERSION }}-amd64,ghcr.io/being24/latex-docker-base:${{ env.IMAGE_VERSION }}-arm64
+          push: true
       - name: Create GitHub Releases
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
