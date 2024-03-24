@@ -27,7 +27,7 @@ jobs:
           REV=$((REV+1))
           done
           echo "IMAGE_VERSION=${YY}.${MM}.${REV}" >> $GITHUB_ENV
-          echo  "${IMAGE_VERSION}"
+          echo ${{ env.IMAGE_VERSION }}
       - name: Login to ghcr.io
         uses: docker/login-action@v3
         with:
@@ -71,7 +71,7 @@ jobs:
           REV=$((REV+1))
           done
           echo "IMAGE_VERSION=${YY}.${MM}.${REV}" >> $GITHUB_ENV
-          echo  "${IMAGE_VERSION}"
+          echo ${{ env.IMAGE_VERSION }}
       # - uses: ./.github/actions/create-multi-arch-image
       #   with:
       #     registry: ghcr.io
@@ -79,12 +79,12 @@ jobs:
       #     password: ${{ secrets.GITHUB_TOKEN }}
       #     image: ghcr.io/being24/latex-docker-base
       #     image-version: ${{ env.IMAGE_VERSION }}
-      # - name: Create and push manifest images
-      #   uses: Noelware/docker-manifest-action@0.4.1
-      #   with:
-      #     inputs: ghcr.io/being24/latex-docker-base:latest
-      #     images: ghcr.io/being24/latex-docker-base:latest-amd64,ghcr.io/being24/latex-docker-base:latest-arm64
-      #     push: true
+      - name: Create and push manifest images
+        uses: Noelware/docker-manifest-action@0.4.1
+        with:
+          inputs: ghcr.io/being24/latex-docker-base:latest,ghcr.io/being24/latex-docker-base:${{ env.IMAGE_VERSION }}
+          images: ghcr.io/being24/latex-docker-base:latest-amd64,ghcr.io/being24/latex-docker-base:latest-arm64
+          push: true
       - name: Create GitHub Releases
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
