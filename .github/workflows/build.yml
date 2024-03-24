@@ -18,6 +18,8 @@ jobs:
           - arm64
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: -1
       - name: create tag
         run: |
           YY=$(date +%y)
