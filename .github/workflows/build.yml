@@ -74,6 +74,12 @@ jobs:
           done
           echo "IMAGE_VERSION=${YY}.${MM}.${REV}" >> $GITHUB_ENV
           echo ${{ env.IMAGE_VERSION }}
+      - name: Login to ghcr.io
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       # - uses: ./.github/actions/create-multi-arch-image
       #   with:
       #     registry: ghcr.io
