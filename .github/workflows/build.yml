@@ -80,13 +80,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      # - uses: ./.github/actions/create-multi-arch-image
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.repository_owner }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}
-      #     image: ghcr.io/being24/latex-docker-base
-      #     image-version: ${{ env.IMAGE_VERSION }}
       - name: Create and push manifest images
         uses: Noelware/docker-manifest-action@0.4.1
         with:
