@@ -26,7 +26,8 @@ jobs:
           while git show-ref --tags | grep -q "refs/tags/${YY}.${MM}.${REV}"; do
           REV=$((REV+1))
           done
-          echo "VERSION=${YY}.${MM}.${REV}" >> $GITHUB_ENV
+          echo "IMAGE_VERSION=${YY}.${MM}.${REV}" >> $GITHUB_ENV
+          echo $IMAGE_VERSION
       - name: Login to ghcr.io
         uses: docker/login-action@v3
         with:
@@ -51,7 +52,7 @@ jobs:
           provenance: false
           tags: |
             ghcr.io/being24/latex-docker-base:latest-${{ matrix.arch }}
-            ghcr.io/being24/latex-docker-base:${{ env.VERSION }}-${{ matrix.arch }}
+            ghcr.io/being24/latex-docker-base:${{ env.IMAGE_VERSION }}-${{ matrix.arch }}
 
   manifest:
     runs-on: ubuntu-22.04
@@ -63,13 +64,7 @@ jobs:
           fetch-depth: -1
       - name: create tag
         run: |
-          YY=$(date +%y)
-          MM=$(date +%m)
-          REV=0
-          while git show-ref --tags | grep -q "refs/tags/${YY}.${MM}.${REV}"; do
-          REV=$((REV+1))
-          done
-          echo "IMAGE_VERSION=${YY}.${MM}.${REV}" >> $GITHUB_ENV
+          echo $IMAGE_VERSION
       # - uses: ./.github/actions/create-multi-arch-image
       #   with:
       #     registry: ghcr.io
