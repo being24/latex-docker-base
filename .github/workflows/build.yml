@@ -78,7 +78,7 @@ jobs:
       #     image: ghcr.io/being24/latex-docker-base
       #     image-version: ${{ env.IMAGE_VERSION }}
       - name: Create and push manifest images
-        uses: Noelware/docker-manifest-action@v0.4.1
+        uses: Noelware/docker-manifest-action@0.4.1
         with:
           inputs: ghcr.io/being24/latex-docker-base:latest
           images: ghcr.io/being24/latex-docker-base:${{ env.IMAGE_VERSION }}-amd64,ghcr.io/being24/latex-docker-base:${{ env.IMAGE_VERSION }}-arm64
