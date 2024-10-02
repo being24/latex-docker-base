@@ -52,11 +52,11 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     inkscape nodejs && \
     # Install haranoaji fonts
-    curl -OL https://github.com/trueroad/HaranoAjiFonts/archive/refs/tags/20231009.zip && \
-    unzip 20231009.zip && \
-    mv HaranoAjiFonts-20231009 /usr/share/fonts/ && \
+    LATEST_TAG=$(curl -s https://api.github.com/repos/trueroad/HaranoAjiFonts/tags | grep '"name"' | sed -E 's/.*"([^"]+)".*/\1/' | head -n 1) && \
+    curl -L -o font.zip https://github.com/trueroad/HaranoAjiFonts/archive/refs/tags/${LATEST_TAG}.zip && \
+    unzip font.zip -d /usr/share/fonts/ && \
     fc-cache -fv && \
-    rm 20231009.zip && \
+    rm font.zip && \
     # Remove unnecessary packages
     apt-get remove -y --purge \
     software-properties-common \
