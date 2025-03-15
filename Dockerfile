@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBCONF_NOWARNINGS=yes
@@ -37,7 +37,7 @@ RUN apt-get update && \
     # Install perl
     echo 'y' | cpan Unicode::GCString && \
     # Install pygments for minted
-    pip3 install --no-cache-dir pygments && \
+    pip3 install --no-cache-dir pygments --break-system-packages && \
     # Add nodejs repository
     mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
