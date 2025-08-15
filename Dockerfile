@@ -52,11 +52,16 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     inkscape nodejs && \
     # Install haranoaji fonts
-    LATEST_TAG=$(curl -s https://api.github.com/repos/trueroad/HaranoAjiFonts/tags | grep '"name"' | sed -E 's/.*"([^"]+)".*/\1/' | head -n 1) && \
-    curl -L -o font.zip https://github.com/trueroad/HaranoAjiFonts/archive/refs/tags/${LATEST_TAG}.zip && \
-    unzip font.zip -d /usr/share/fonts/ && \
-    fc-cache -fv && \
-    rm font.zip && \
+    curl -L -o font.tar.gz "https://github.com/trueroad/HaranoAjiFonts/archive/refs/heads/master.tar.gz" && \
+    ls -la font.tar.gz && \
+    if [ -f font.tar.gz ] && [ -s font.tar.gz ]; then \
+        tar -xzf font.tar.gz -C /usr/share/fonts/ && \
+        fc-cache -fv && \
+        rm font.tar.gz; \
+    else \
+        echo "Font download failed, aborting build" && \
+        exit 1; \
+    fi && \
     # Remove unnecessary packages
     apt-get remove -y --purge \
     software-properties-common \
