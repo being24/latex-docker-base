@@ -33,7 +33,8 @@ RUN apt-get update && \
     fonts-ipaexfont \
     fonts-noto-cjk \
     fonts-noto-cjk-extra \
-    fonts-texgyre && \
+    fonts-texgyre \
+    ssh-client && \
     # Install perl
     echo 'y' | cpan Unicode::GCString && \
     # Install pygments for minted
