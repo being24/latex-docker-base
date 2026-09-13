@@ -71,7 +71,6 @@ RUN apt-get update && \
     software-properties-common \
     build-essential \
     unzip \
-    make \
     gnupg \
     libfontconfig1-dev \
     less && \
